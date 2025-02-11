@@ -11,10 +11,28 @@ What is Polling?
 
 # Let's build it!
 
-- Install laravel
-  - https://laravel.com/docs/11.x/installation
-- I prefer installing using the Starter Kit https://laravel.com/docs/11.x/starter-kits#breeze-and-inertia - Laravel Breeze with Ineria and React 
+## Install laravel
+https://laravel.com/docs/11.x/installation  
+I prefer installing using the Starter Kit https://laravel.com/docs/11.x/starter-kits#breeze-and-inertia - Laravel Breeze with Ineria and React 
 
+## Install Reverb
+> https://laravel.com/docs/11.x/reverb#installation
+
+
+You may install Reverb using the install:broadcasting Artisan command:
+```
+php artisan install:broadcasting
+```
+
+## Create the Models and Migrations
+
+```
+php artisan make:model Message -m
+```
+
+
+
+---
 
 Credits:
 https://medium.com/@emreensr
