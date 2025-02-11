@@ -6,9 +6,16 @@ Want to add real-time chat to your app? With Laravel Reverb, it's easier than ev
 - When was reverb created?
 - what problems does it solve
 
+What is Polling?
+
+
 # Let's build it!
 
 - Install laravel
   - https://laravel.com/docs/11.x/installation
-- I prefer installing it with Laravel Breeze with Ineria and React https://laravel.com/docs/11.x/starter-kits#breeze-and-inertia
+- I prefer installing using the Starter Kit https://laravel.com/docs/11.x/starter-kits#breeze-and-inertia - Laravel Breeze with Ineria and React 
 
+
+Credits:
+https://medium.com/@emreensr
+https://www.youtube.com/@LaravelDaily
