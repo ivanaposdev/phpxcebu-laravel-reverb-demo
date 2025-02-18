@@ -61,7 +61,7 @@ export default function Dashboard() {
         <div className={`inline-block px-5 py-2 rounded-lg ${isMe ? 'bg-indigo-500 text-white' : 'bg-gray-200 text-gray-800'} `}>
           <p>{message.text}</p>
           <span className="text-[10px]">
-            {message.created_at}
+            {(new Date(message.created_at)).toLocaleString()}
           </span>
         </div>
       </div>
