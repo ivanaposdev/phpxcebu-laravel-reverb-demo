@@ -3,17 +3,28 @@
 Want to add real-time chat to your app? With Laravel Reverb, it's easier than ever. No more relying on third-party services, complex server setups, or inefficient polling hacks—Reverb is a first-party WebSocket server designed for seamless real-time communication. Let’s build it the right way!
 
 # Background
-- When was reverb created?
-- what problems does it solve
 
-What is Polling?
+### Why Reverb?
+
+Alternatives:
+- https://github.com/beyondcode/laravel-websockets
+- https://docs.soketi.app/
+
+
+### Websockets vs Polling
+
+#### What is Polling?
+ - https://medium.com/@dmosyan/http-long-polling-vs-websockets-dadab8f7f26f
 
 
 # Let's build it!
 
 ## Install Laravel
 https://laravel.com/docs/11.x/installation  
+
 I prefer installing using the Starter Kit https://laravel.com/docs/11.x/starter-kits#breeze-and-inertia - Laravel Breeze with Ineria and React 
+
+I'm using React for the frontend in this demo, but you can use Vue, Angular, etc. as well.
 
 ## Create the Models and Migrations
 
@@ -152,8 +163,8 @@ Edit this file, it should have the following content:
 ```
 
 - Note that `MessageCreatedEvent` implements `ShouldBroadcastNow`
-- We are passing the `$message` as an array
-- We are using the channel `message`
+- We are passing the `$message` as an array in the constructor
+- And We are using the channel `message`
 
 
 Then in `routes\channels.php` we'll add the following:
@@ -164,27 +175,46 @@ Broadcast::channel('message', function () {
 });
 ```
 
-here we can configure the channel access controls, for this demo we'll just allow all users to access the channel.
+here we can configure the channel access controls, for this demo we'll just allow all users to access the `message` channel.
 
-Let's go back to our `MessageController` controller
+Now Let's go back to our `MessageController` controller.
 
-and add a line
+And add the line to broadcast the `MessageCreatedEvent` event.
 
 ```php 
 broadcast(new MessageCreatedEvent($message->load('user')->toArray()));
 ```
 
+```diff
+...
+class MessageController extends Controller
+{
+    ...
+    public function send(Request $request)
+    {
+        $validated = $request->validate([
+            'message' => 'required|max:255',
+        ]);
+
+        $message = $request->user()
+            ->messages()
+            ->create(['text' => $validated['message']]);
+
++       broadcast(new MessageCreatedEvent($message->load('user')->toArray()));
+    }
+    ...
+}
+...
+```
 
 ## Create the Views
 
 The view is gonna be simple, we'll just edit the current `Dashboard` view located in `resources\js\Pages\Dashboard.jsx`.
 
-<Link to Dashboard.jsx>
-
 
 
 ---
 
-Credits:
-https://medium.com/@emreensr
-https://www.youtube.com/@LaravelDaily
+The resource are inspired by the following sources:
+- https://medium.com/@emreensr
+- https://www.youtube.com/@LaravelDaily
